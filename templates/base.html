@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block title %}
+    <title>Parfume Store - Магазин парфумів</title>
+    {% endblock %}
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-container">
+        <a href="/" class="logo">Parfume Boutique</a>
+        <nav class="main-nav">
+          <a href="/">Головна</a>
+          <a href="/parfumes">Каталог</a>
+          <a href="#contact">Контакти</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main-content">{% block content %} {% endblock %}</main>
+
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-section">
+          <h4>Про нас</h4>
+          <p>
+            Ваш найкращий вибір оригінальних парфумів за найвигіднішими цінами
+          </p>
+        </div>
+        <div class="footer-section">
+          <h4>Контакти</h4>
+          <p>Email: info@parfume-boutique.ua</p>
+          <p>Телефон: +380 XX XXX XX XX</p>
+        </div>
+        <div class="footer-section">
+          <h4>Графік роботи</h4>
+          <p>Пн-Пт: 9:00 - 20:00</p>
+          <p>Сб-Нд: 10:00 - 18:00</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Parfume Boutique. Всі права захищені</p>
+      </div>
+    </footer>
+  </body>
+</html>

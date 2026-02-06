@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+<div class="page-header">
+  <h1>Усі наявні товари</h1>
+  <div class="divider"></div>
+</div>
+<div class="products-grid">
+  {% for parfume in parfumes %}
+  <div class="product-card">
+    <div class="product-image-wrapper">
+      <img src="{{parfume.picture}}" alt="{{parfume.name}}" />
+    </div>
+    <div class="product-card-content">
+      <h3>{{parfume.name}}</h3>
+      <h4 class="product-brand">{{parfume.brand}}</h4>
+      <div class="price-container">
+        <p class="current-price">{{parfume.price}} ₴</p>
+        <p class="old-price">{{parfume.price_old}} ₴</p>
+      </div>
+    </div>
+    <button type="button" class="buy-button">
+      <a href="/order/{{parfume.id}}">Купити</a>
+    </button>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
