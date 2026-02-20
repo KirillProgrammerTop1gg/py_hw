@@ -1,13 +1,22 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from databases import Session, Parfume, Order
-import os, magic, uuid
+import os, magic, uuid, random, itertools, string
 from werkzeug.utils import secure_filename
+
 
 app = Flask(__name__)
 app.secret_key = 'hw20'
 
-ADMIN_PASSWORD = "admin"
+ADMIN_PASSWORD = ''.join(random.choice(list(itertools.chain(string.ascii_letters, string.digits, string.punctuation))) for _ in range(10))
+HOST = "127.0.0.1"
+PORT = 4000
+
 FILES_PATH = "static/parfumes"
+ADMIN_PATH = f"/admin_{uuid.uuid4()}"
+ADMIN_LINK = f"http://{HOST}:{PORT}{ADMIN_PATH}\nADMIN_PASSWORD= '{ADMIN_PASSWORD}'"
+
+with open('admin_link.txt', 'w') as f:
+    f.write(ADMIN_LINK)
 
 @app.route("/")
 def index():
@@ -42,7 +51,7 @@ def order(parfume_id):
 
         return render_template("order.html", parfume=parfume)
 
-@app.route('/admin', methods=["GET", "POST"])
+@app.route(ADMIN_PATH, methods=["GET", "POST"])
 def admin():
     if request.method == "POST":
         product_id = request.form.get('product-id')
@@ -93,6 +102,10 @@ def admin():
     else:
         return render_template('admin_login.html')
 
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=True, host=HOST, port=PORT)
+    session['isadmin'] = False
