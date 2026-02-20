@@ -9,7 +9,7 @@ app.secret_key = 'hw20'
 
 ADMIN_PASSWORD = ''.join(random.choice(list(itertools.chain(string.ascii_letters, string.digits, string.punctuation))) for _ in range(10))
 HOST = "127.0.0.1"
-PORT = 4000
+PORT = 4001
 
 FILES_PATH = "static/parfumes"
 ADMIN_PATH = f"/admin_{uuid.uuid4()}"
@@ -93,6 +93,7 @@ def admin():
                 
         if password == ADMIN_PASSWORD:
             session['isadmin'] = True
+            
     if session.get('isadmin'):
         with Session() as db_session:
             all_parfumes = db_session.query(Parfume).all()
@@ -108,4 +109,3 @@ def page_not_found(error):
 
 if __name__ == "__main__":
     app.run(debug=True, host=HOST, port=PORT)
-    session['isadmin'] = False

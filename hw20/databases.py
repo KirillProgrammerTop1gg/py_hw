@@ -1,8 +1,13 @@
 from sqlalchemy import create_engine, String, Float, Integer, ForeignKey, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship, sessionmaker
 from sqlalchemy.orm import DeclarativeBase
+import os, requests
+from dotenv import load_dotenv
 
-from config import PGUSER, PGPASSWORD
+load_dotenv()
+
+PGUSER = os.getenv("PGUSER")
+PGPASSWORD = os.getenv("PGPASSWORD")
 
 engine = create_engine(
     f"postgresql+psycopg2://{PGUSER}:{PGPASSWORD}@localhost:5432/parfume_store",
