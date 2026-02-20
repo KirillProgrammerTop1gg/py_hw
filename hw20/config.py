@@ -1,0 +1,2 @@
+PGUSER = "myuser"
+PGPASSWORD = "qwerty"

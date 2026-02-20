@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block content %}
+<div class="page-header">
+  <h1>Оформлення замовлення</h1>
+  <div class="divider"></div>
+</div>
+<div class="product-detail-container">
+  <div class="product-image">
+    <img src="{{parfume.picture}}" alt="{{parfume.name}}" />
+  </div>
+  <div class="product-info">
+    <h3>{{parfume.name}}</h3>
+    <h4 class="product-brand">{{parfume.brand}}</h4>
+    <div class="price-container-detail">
+      <p class="current-price">{{parfume.price}} ₴</p>
+      <p class="old-price">{{parfume.price_old}} ₴</p>
+    </div>
+    <div class="order-form">
+      <h4>Заповніть форму замовлення</h4>
+      <form method="post">
+        <div class="form-group">
+          <label>Ваш номер телефону:</label>
+          <input type="text" name="phone" placeholder="+380..." required />
+        </div>
+        <div class="form-group">
+          <label>Адреса електронної скриньки:</label>
+          <input
+            type="text"
+            name="email"
+            placeholder="example@mail.com"
+            required
+          />
+        </div>
+        <input type="submit" value="Підтвердити замовлення" />
+      </form>
+      <p class="disclaimer">
+        *Після оформлення замовлення з вами зв'яжеться консультант
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

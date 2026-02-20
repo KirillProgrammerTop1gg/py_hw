@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block content %}
+<div class="section-login">
+    <div class="login-card">
+        <div class="lock-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+        </div>
+        <h1 class="login-title">Адмін-панель</h1>
+        <p class="login-subtitle">Це захищена зона. Для входу введіть пароль.</p>
+        <div class="divider"></div>
+        <form method="POST" action="">
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" name="password" placeholder="Введіть пароль..." required autocomplete="current-password">
+                </div>
+            </div>
+            <button type="submit" class="login-btn">Увійти</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block content %}
+<div class="page-header">
+  <h1>Усі наявні товари</h1>
+  <p>Ви можете клікнути на товар та замінити його фото</p>
+  <div class="divider"></div>
+</div>
+<div class="products-grid">
+  {% for parfume in parfumes %}
+  <form class="product-card" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="product-id" value="{{parfume.id}}" />
+    <div class="product-image-wrapper">
+      <input
+        type="file"
+        id="avatar-{{parfume.id}}"
+        name="product-photo"
+        accept="image/png, image/jpeg"
+        style="display: none"
+        required
+      />
+      <label for="avatar-{{parfume.id}}">
+        <img
+          src="{{parfume.picture}}"
+          alt="{{parfume.name}}"
+          class="product-img"
+          style="cursor: pointer"
+        />
+      </label>
+    </div>
+    <div class="product-card-content">
+      <h3>{{parfume.name}}</h3>
+      <h4 class="product-brand">{{parfume.brand}}</h4>
+      <div class="price-container">
+        <p class="current-price">{{parfume.price}} ₴</p>
+        <p class="old-price">{{parfume.price_old}} ₴</p>
+      </div>
+    </div>
+    <button type="submit" class="buy-button">
+      <a>Зберегти нове фото</a>
+    </button>
+  </form>
+  {% endfor %}
+</div>
+
+<script>
+  document.querySelectorAll('input[type="file"]').forEach((input) => {
+    input.addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = this.closest(".product-image-wrapper").querySelector("img");
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+</script>
+{% endblock %}
