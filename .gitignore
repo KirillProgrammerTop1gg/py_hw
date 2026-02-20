@@ -8,3 +8,6 @@ wheels/
 
 # Virtual environments
 .venv
+
+admin_link.txt
+.env

@@ -9,9 +9,12 @@ dependencies = [
     "asyncpg>=0.31.0",
     "curl-cffi>=0.14.0",
     "flask>=3.1.2",
+    "google-genai>=1.63.0",
     "httpx>=0.28.1",
     "parse>=1.21.0",
     "parsel>=1.11.0",
     "psycopg2>=2.9.11",
+    "python-dotenv>=1.2.1",
+    "python-magic>=0.4.27",
     "sqlalchemy>=2.0.46",
 ]
