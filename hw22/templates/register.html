@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block title %}
+<title>Реєстрація — Сфера</title>
+{% endblock %} {% block content %}
+<section class="auth" aria-labelledby="register-title">
+  <article class="auth__card">
+    <p class="auth__logo">Сфера</p>
+    <p class="auth__tagline">Приєднайтесь до нас</p>
+
+    <h1 class="auth__title" id="register-title">Реєстрація</h1>
+
+    <form class="form" method="post" novalidate>
+      {{ form.hidden_tag() }}
+
+      <div class="form__group">
+        {{ form.nickname.label }} {{ form.nickname(placeholder="Оберіть нікнейм") }}
+      </div>
+
+      <div class="form__group">
+        {{ form.email.label }} {{ form.email(placeholder="your@email.com") }}
+      </div>
+
+      <div class="form__group">
+        {{ form.password.label }} {{ form.password(placeholder="Надійний пароль") }}
+      </div>
+
+      <div class="form__group mt-2">
+        {{ form.submit(class="btn btn--primary") }}
+      </div>
+    </form>
+
+    <div class="auth__divider"></div>
+    <p class="auth__footer">
+      Вже маєте акаунт?
+      <a href="/login">Увійти</a>
+    </p>
+  </article>
+</section>
+{% endblock %}

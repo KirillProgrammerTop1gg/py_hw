@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block title %}
+<title>Пошук друзів — Сфера</title>
+{% endblock %} {% block content %}
+<section class="search-friends" aria-labelledby="search-title">
+  <header class="page-header">
+    <h1 class="page-header__title" id="search-title">Пошук друзів</h1>
+    <p class="page-header__subtitle">Знайдіть нових знайомих за нікнеймом</p>
+  </header>
+
+  <article class="search-friends__form">
+    <form class="form" method="post" novalidate>
+      {{ form.hidden_tag() }}
+
+      <div class="form__group">
+        {{ form.name.label }} {{ form.name(class="form__input",
+        placeholder="Введіть нікнейм...") }}
+      </div>
+
+      <div class="form__group">{{ form.submit(class="btn btn--primary") }}</div>
+    </form>
+  </article>
+</section>
+{% endblock %}

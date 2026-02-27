@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block title %}
+    <title>Сфера — Спілкування без меж</title>
+    {% endblock %}
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="site-header__container">
+        <a href="/" class="site-header__logo" aria-label="Сфера — на головну">
+          <span class="site-header__logo-icon" aria-hidden="true">◎</span>
+          Сфера
+        </a>
+
+        <nav class="main-nav" aria-label="Головна навігація">
+          <a href="/search_friends" class="main-nav__link">
+            <span class="main-nav__link-icon" aria-hidden="true">🔍</span>
+            Пошук
+          </a>
+          <a href="/my_friends" class="main-nav__link">
+            <span class="main-nav__link-icon" aria-hidden="true">👥</span>
+            Друзі
+          </a>
+          <a href="/friend_requests" class="main-nav__link">
+            <span class="main-nav__link-icon" aria-hidden="true">📬</span>
+            Запити
+          </a>
+          <a href="/new_messages" class="main-nav__link">
+            <span class="main-nav__link-icon" aria-hidden="true">💬</span>
+            Чати
+          </a>
+          {% block nav_extra %}{% endblock %}
+        </nav>
+      </div>
+    </header>
+
+    <main class="main-content" id="main" tabindex="-1">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% set category, message = messages[0] %}
+      <div class="alert alert--{{ category }}" role="alert" aria-live="polite">
+        {{ message }}
+      </div>
+      {% endif %} {% endwith %} {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <p class="site-footer__brand-name">
+            <span class="site-footer__brand-icon" aria-hidden="true">◎</span>
+            Сфера
+          </p>
+          <p class="site-footer__brand-desc">
+            Простір для щирого спілкування.<br />
+            Знайомтесь, спілкуйтесь, будьте поруч.
+          </p>
+        </div>
+
+        <nav class="site-footer__nav" aria-label="Навігація у футері">
+          <p class="site-footer__nav-title">Функції</p>
+          <ul class="site-footer__nav-list" role="list">
+            <li>
+              <a href="/search_friends" class="site-footer__nav-link"
+                >Пошук людей</a
+              >
+            </li>
+            <li>
+              <a href="/my_friends" class="site-footer__nav-link">Мої друзі</a>
+            </li>
+            <li>
+              <a href="/friend_requests" class="site-footer__nav-link"
+                >Запити на дружбу</a
+              >
+            </li>
+            <li>
+              <a href="/new_messages" class="site-footer__nav-link"
+                >Повідомлення</a
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <div class="site-footer__info">
+          <p class="site-footer__nav-title">Підтримка</p>
+          <ul class="site-footer__nav-list" role="list">
+            <li>
+              <a href="#" class="site-footer__nav-link">Правила спільноти</a>
+            </li>
+            <li>
+              <a href="#" class="site-footer__nav-link">Конфіденційність</a>
+            </li>
+            <li><a href="#" class="site-footer__nav-link">Допомога</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <p class="site-footer__copy">&copy; 2026 Сфера. Всі права захищені.</p>
+        <p class="site-footer__copy site-footer__copy--muted">
+          Зроблено з ♥ в Україні
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

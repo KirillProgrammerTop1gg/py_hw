@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Написати повідомлення — Сфера</title>
+{% endblock %}
+
+{% block content %}
+<section class="compose" aria-labelledby="compose-title">
+  <header class="page-header">
+    <h1 class="page-header__title" id="compose-title">Нове повідомлення</h1>
+  </header>
+
+  <article class="compose__form">
+    <form class="form" method="post" novalidate>
+      {{ form.hidden_tag() }}
+
+      <div class="form__group">
+        <label class="form__label" for="text">Текст повідомлення</label>
+        {{ form.text(class="form__textarea", id="text", placeholder="Введіть текст повідомлення...") }}
+      </div>
+
+      <div class="form__group">
+        {{ form.submit(class="btn btn--primary") }}
+      </div>
+    </form>
+  </article>
+</section>
+{% endblock %}

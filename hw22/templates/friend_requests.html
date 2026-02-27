@@ -1,0 +1,41 @@
+{% extends "base.html" %} {% block title %}
+<title>Запити на дружбу — Сфера</title>
+{% endblock %} {% block content %}
+<section aria-labelledby="requests-title">
+  <header class="page-header">
+    <h1 class="page-header__title" id="requests-title">Запити на дружбу</h1>
+    <p class="page-header__subtitle">Прийміть або відхиліть запити</p>
+  </header>
+
+  {% if data %}
+  <ul class="requests-list" role="list">
+    {% for id, name in data.items() %}
+    <li class="request-item">
+      <div class="request-item__header">
+        <div class="request-item__avatar" aria-hidden="true">
+          {{ name[0] | upper }}
+        </div>
+        <div>
+          <p class="request-item__name">{{ name }}</p>
+          <p class="request-item__label">Хоче додати вас у друзі</p>
+        </div>
+      </div>
+      <div class="request-item__actions">
+        <form method="post" action="/friend_requests_confirm/{{ id }}">
+          {{ form.hidden_tag() }} {{ form.accept(class="btn btn--primary") }}
+        </form>
+        <form method="post" action="/friend_requests_confirm/{{ id }}">
+          {{ form.hidden_tag() }} {{ form.decline(class="btn btn--ghost") }}
+        </form>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="empty-state">
+    <p class="empty-state__icon" aria-hidden="true">📬</p>
+    <p class="empty-state__text">Немає нових запитів на дружбу</p>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

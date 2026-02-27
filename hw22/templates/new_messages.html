@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block title %}
+<title>Нові повідомлення — Сфера</title>
+{% endblock %} {% block content %}
+<section aria-labelledby="messages-title">
+  <header class="page-header">
+    <h1 class="page-header__title" id="messages-title">Нові повідомлення</h1>
+    <p class="page-header__subtitle">Останні непрочитані повідомлення</p>
+  </header>
+
+  {% if data %}
+  <ul class="messages-list" role="list">
+    {% for name, text in data.items() %}
+    <li class="message-card">
+      <h2 class="message-card__sender">{{ name }}</h2>
+      <pre class="message-card__preview">{{ text }}</pre>
+      <a href="/user_messages/{{ name }}" class="message-card__link">
+        Переглянути всі повідомлення →
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="empty-state">
+    <p class="empty-state__icon" aria-hidden="true">💬</p>
+    <p class="empty-state__text">Нових повідомлень немає</p>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

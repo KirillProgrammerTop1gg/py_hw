@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block title %}
+<title>Переписка з другом</title>
+{% endblock %} {% block content %}
+<section aria-labelledby="thread-title">
+  <header class="page-header">
+    <h1 class="page-header__title" id="thread-title">Переписка</h1>
+  </header>
+
+  {% if messages %}
+  <ol class="thread" role="list">
+    {% for message in messages %}
+    <li class="thread__bubble">
+      <p class="thread__bubble-text">{{ message.message_text }}</p>
+    </li>
+    {% endfor %}
+  </ol>
+  {% else %}
+  <div class="empty-state">
+    <p class="empty-state__icon" aria-hidden="true">📭</p>
+    <p class="empty-state__text">Повідомлень поки немає</p>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block title %}
+<title>Мої друзі — Сфера</title>
+{% endblock %} {% block content %}
+<section aria-labelledby="friends-title">
+  <header class="page-header">
+    <h1 class="page-header__title" id="friends-title">Мої друзі</h1>
+    <p class="page-header__subtitle">Список ваших друзів</p>
+  </header>
+
+  {% if data %}
+  <ul class="friends-list" role="list">
+    {% for name in data %}
+    <li class="friend-item">
+      <div class="friend-item__avatar" aria-hidden="true">
+        {{ name[0] | upper }}
+      </div>
+      <span class="friend-item__name">{{ name }}</span>
+      <div class="friend-item__actions">
+        <a href="/create_message/{{ name }}" class="btn btn--outline btn--sm">
+          Написати
+        </a>
+        <form method="post" action="/del_friend/{{ name }}" style="margin: 0">
+          {{ form.hidden_tag() }} {{ form.submit(class="btn btn--danger",
+          value="Видалити") }}
+        </form>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="empty-state">
+    <p class="empty-state__icon" aria-hidden="true">👥</p>
+    <p class="empty-state__text">
+      У вас поки немає друзів. <a href="/search_friends">Знайти друзів</a>
+    </p>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

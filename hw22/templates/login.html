@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block title %}
+<title>Вхід — Сфера</title>
+{% endblock %} {% block content %}
+<section class="auth" aria-labelledby="login-title">
+  <article class="auth__card">
+    <p class="auth__logo">Сфера</p>
+    <p class="auth__tagline">Особистий кабінет</p>
+
+    <h1 class="auth__title" id="login-title">Вхід в акаунт</h1>
+
+    <form class="form" method="post" novalidate>
+      {{ form.hidden_tag() }}
+
+      <div class="form__group">
+        {{ form.nickname.label }} {{ form.nickname(placeholder="Ваш нікнейм") }}
+      </div>
+
+      <div class="form__group">
+        {{ form.password.label }} {{ form.password(placeholder="Пароль") }}
+      </div>
+
+      <div class="form__group mt-2">
+        {{ form.submit(class="btn btn--primary") }}
+      </div>
+    </form>
+
+    <div class="auth__divider"></div>
+    <p class="auth__footer">
+      Ще немає акаунту?
+      <a href="/register">Зареєструватися</a>
+    </p>
+  </article>
+</section>
+{% endblock %}
