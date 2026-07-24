@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Додати Проєкт - Галерея{% endblock %}
+
+{% block content %}
+    <h2>Додати Новий Проєкт</h2>
+    
+    <div class="project-card">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <h3>Інформація про проєкт</h3>
+            {% for field in project_form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div style="color: red; font-size: 0.9rem;">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            
+            <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #eee;">
+            
+            <h3>Зображення для галереї</h3>
+            {% for field in gallery_form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div style="color: red; font-size: 0.9rem;">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            
+            <div id="imagePreviewContainer" class="preview-container"></div>
+            
+            <button type="submit" class="btn" style="margin-top: 1rem;">Зберегти Проєкт</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.querySelector('input[type="file"]');
+            const previewContainer = document.getElementById('imagePreviewContainer');
+
+            if (fileInput) {
+                fileInput.addEventListener('change', function(e) {
+                    previewContainer.innerHTML = '';
+                    const files = e.target.files;
+
+                    if (files) {
+                        Array.from(files).forEach(file => {
+                            if (file.type.startsWith('image/')) {
+                                const reader = new FileReader();
+                                reader.onload = function(event) {
+                                    const previewItem = document.createElement('div');
+                                    previewItem.className = 'preview-item';
+                                    
+                                    const img = document.createElement('img');
+                                    img.src = event.target.result;
+                                    img.alt = file.name;
+                                    
+                                    previewItem.appendChild(img);
+                                    previewContainer.appendChild(previewItem);
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock content %}

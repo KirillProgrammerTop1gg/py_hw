@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Project Gallery{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'project_gallery/css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Галерея Проєктів</h1>
+        <nav>
+            <a href="{% url 'project_gallery:index' %}">Головна (Галерея)</a>
+            <a href="{% url 'project_gallery:add_project' %}">Додати Проєкт</a>
+            <a href="{% url 'project_gallery:add_images' %}">Додати Фото до Проєкту</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    <!-- Modal for full size image -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="fullImage">
+    </div>
+
+    <script>
+        function openModal(imageSrc) {
+            var modal = document.getElementById("imageModal");
+            var modalImg = document.getElementById("fullImage");
+            modal.style.display = "flex";
+            modalImg.src = imageSrc;
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("imageModal");
+            modal.style.display = "none";
+        }
+
+        // Close on click outside image
+        window.onclick = function(event) {
+            var modal = document.getElementById("imageModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -767,39 +767,6 @@ A REST API for an education platform built on Django REST Framework, with a full
 
 ---
 
-<details>
-<summary>🔹 <b>hw_64 — Automatic Project Gallery with Django Signals & File Handling</b></summary>
-
-An automated smart gallery system for Django projects that combines Django signals (`post_save`, `post_delete`), Pillow image processing, custom model validators, EXIF sanitization, and automated notifications/logging.
-
-### 🚀 Features
-
-- **Models & Image Resizing**:
-  - `ProjectGallery` — model storing `original_image`, three auto-generated image dimensions (`thumbnail` 150x150, `medium_image` 600x400, `large_image` 1200x800), automatically generated `alt_text`, and upload timestamp.
-  - Automatic multi-size image generation using Pillow on image upload via Django `post_save` signals.
-- **Automated Signals & Workflows**:
-  - **Alt Text Generation**: automatically generates alt text based on the related project title if not provided.
-  - **Email Notification**: sends an email to the project owner upon uploading a new image.
-  - **File Operations Logging**: logs image creation, dynamic thumbnail generation, and file deletion operations.
-  - **Cleanup Signal**: automatically removes associated media files from storage when a `ProjectGallery` instance is deleted (`post_delete`).
-- **Validation & Security**:
-  - **MIME & Image Format Validation**: verifies that uploaded files are authentic images using Pillow header inspection rather than relying solely on file extensions.
-  - **Minimum Dimension Validation**: enforces minimum resolution requirements (e.g., at least 300x200 pixels).
-  - **EXIF Sanitization & Security**: checks EXIF metadata for malicious content and automatically strips sensitive EXIF data (e.g., GPS location, camera details) upon saving to protect user privacy.
-
-### 🗄 Models
-
-- `Project` — core project entity linked to an owner.
-- `ProjectGallery` — image gallery model (`project`, `original_image`, `thumbnail`, `medium_image`, `large_image`, `alt_text`, `uploaded_at`).
-
-### 🛠 Libraries
-
-- `django`, `pillow`
-
-</details>
-
----
-
 ## 🎯 Goal
 
 The goal of this repository is to improve backend development skills through building real-world applications using:

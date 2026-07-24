@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Всі Проєкти - Галерея{% endblock %}
+
+{% block content %}
+    <h2>Наші Проєкти</h2>
+    
+    {% for project in projects %}
+        <div class="project-card">
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.description }}</p>
+            
+            <div class="carousel">
+                {% for image in project.gallery_images.all %}
+                    <!-- We use medium_image if it exists, otherwise fallback to original_image -->
+                    {% if image.medium_image %}
+                        <!-- The user asked to show medium_image in carousel and large_image in full view -->
+                        <img src="{{ image.medium_image.url }}" alt="{{ image.alt_text }}" 
+                             onclick="openModal('{% if image.large_image %}{{ image.large_image.url }}{% else %}{{ image.original_image.url }}{% endif %}')">
+                    {% else %}
+                        <img src="{{ image.original_image.url }}" alt="{{ image.alt_text }}" 
+                             onclick="openModal('{{ image.original_image.url }}')" style="max-height: 250px;">
+                    {% endif %}
+                {% empty %}
+                    <p>Немає зображень для цього проєкту.</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% empty %}
+        <p>Поки що немає проєктів.</p>
+    {% endfor %}
+{% endblock content %}
