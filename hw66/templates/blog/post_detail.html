@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} - BrLog{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <div class="post-meta">
+        Автор: {{ post.author.username }} | Дата: {{ post.created_at|date:"d.m.Y H:i" }}
+    </div>
+    
+    <div style="margin-bottom: 40px; font-size: 1.1rem;">
+        {{ post.text|linebreaks }}
+    </div>
+
+    <hr style="border: 2px solid var(--border-color); margin-bottom: 20px;">
+
+    <h2>Коментарі ({{ post.comments.count }})</h2>
+    
+    {% for comment in post.comments.all %}
+        <div class="comment">
+            <div class="comment-author">{{ comment.author.username }}</div>
+            <div style="font-size: 0.8rem; margin-bottom: 10px;">{{ comment.created_at|date:"d.m.Y H:i" }}</div>
+            <p>{{ comment.text }}</p>
+        </div>
+    {% empty %}
+        <p>Будьте першим, хто залишить коментар!</p>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <h3>Додати коментар</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Надіслати</button>
+        </form>
+    {% else %}
+        <p style="border: 3px solid var(--border-color); padding: 10px; background: #eee;">
+            <a href="{% url 'login' %}">Увійдіть</a>, щоб залишити коментар.
+        </p>
+    {% endif %}
+{% endblock %}

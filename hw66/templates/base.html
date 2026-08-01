@@ -1,0 +1,65 @@
+{% load static cache %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BrLog{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% cache 600 header request.user.username %}
+    <header>
+        <a href="{% url 'post_list' %}" class="brand">BrLog</a>
+        <nav>
+            {% if user.is_authenticated %}
+                <span style="font-weight:bold; margin-right: 15px; text-transform:uppercase;">[ {{ user.username }} ]</span>
+                <form action="{% url 'logout' %}" method="post" style="display:inline; border:none; padding:0; margin:0; background:none;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn" style="padding: 5px 10px; font-size: 1rem;">Вийти</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Вхід</a>
+                <a href="{% url 'register' %}">Реєстрація</a>
+            {% endif %}
+        </nav>
+    </header>
+    {% endcache %}
+
+    <div class="container" style="display: flex; max-width: 1200px; margin: 0 auto;">
+        <main style="flex: 3; padding: 20px;">
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        {% cache 600 sidebar %}
+        <aside style="flex: 1; padding: 20px;">
+            <h3>Маніфест</h3>
+            <p>МИ ПРОТИ ЗАКРУГЛЕНИХ КУТІВ ТА ПЛАСТИКОВИХ ІНТЕРФЕЙСІВ. ТІЛЬКИ ЧИСТИЙ HTML, СИРИЙ ТЕКСТ ТА КОНТРАСТ. ЦЕЙ БЛОГ — ПРО УТИЛІТАРИЗМ, АНТИ-ДИЗАЙН ТА СВОБОДУ ВІД ФРЕЙМВОРКІВ.</p>
+            <hr style="border: 2px dashed var(--border-color); margin: 20px 0;">
+            <h4>Теги</h4>
+            <ul>
+                <li>RAW Бетон</li>
+                <li>Анти-UX</li>
+                <li>Стандарти</li>
+            </ul>
+        </aside>
+        {% endcache %}
+    </div>
+
+    {% cache 600 footer %}
+    <footer>
+        <p>&copy; {% now "Y" %} BrLog. Усі права зарезервовано.</p>
+    </footer>
+    {% endcache %}
+</body>
+</html>

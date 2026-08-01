@@ -800,6 +800,42 @@ An automated smart gallery system for Django projects that combines Django signa
 
 ---
 
+<details>
+<summary>🔹 <b>hw_66 — Simple Blog Optimization & Security (Django Caching & Performance)</b></summary>
+
+A Django simple blog application demonstrating query optimization (N+1 fixes), performance caching, security practices, and form validation.
+
+### 🚀 Features
+
+- **Blog Application**:
+  - `Post` list and detailed view with `Comment` section.
+  - User registration and login using built-in Django authentication views.
+  - Comment form with max 500 characters limit and HTML tags restriction.
+  - Rate limiting for comments (max 3 comments per 5 minutes per user).
+- **Optimization & Performance**:
+  - Fixed N+1 queries using `select_related('author')` for post list and `prefetch_related('comments__author')` for post details.
+  - Integration of `django-debug-toolbar` for request inspection.
+  - View caching: `@cache_page(300)` for post list page (5 minutes).
+  - Template fragment caching: `{% cache 600 sidebar %}` for the sidebar component.
+  - Cache invalidation via Django signals (`post_save` on `Post` clears cache).
+- **Security Enhancements**:
+  - `DEBUG = False`, hidden `SECRET_KEY` via `.env`.
+  - Secure cookies with `SESSION_COOKIE_SECURE = True` and `CSRF_COOKIE_SECURE = True`.
+  - Cross-Site Scripting (XSS) prevention on comments (`<script>alert('test')</script>` is blocked by `strip_tags` and validation).
+
+### 🗄 Models
+
+- `Post` — stores title, text, date, and `author` (ForeignKey to User).
+- `Comment` — stores text, date, `post` (ForeignKey), and `author` (ForeignKey to User).
+
+### 🛠 Libraries
+
+- `django`, `django-debug-toolbar`, `python-dotenv`
+
+</details>
+
+---
+
 ## 🎯 Goal
 
 The goal of this repository is to improve backend development skills through building real-world applications using:

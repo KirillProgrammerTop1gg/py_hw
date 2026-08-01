@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Вхід - BrLog{% endblock %}
+
+{% block content %}
+    <h1>Вхід</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Увійти</button>
+    </form>
+    <p style="margin-top: 20px;">Немає акаунту? <a href="{% url 'register' %}">Зареєструйтесь</a>.</p>
+{% endblock %}

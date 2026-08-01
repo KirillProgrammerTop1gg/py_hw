@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Всі пости</h1>
+    
+    {% for post in posts %}
+        <article class="post-card">
+            <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
+            <div class="post-meta">
+                Автор: {{ post.author.username }} | Дата: {{ post.created_at|date:"d.m.Y H:i" }}
+            </div>
+            <p>{{ post.text|truncatewords:30 }}</p>
+            <a href="{% url 'post_detail' post.id %}" class="btn" style="font-size: 0.9rem; padding: 5px 10px;">Читати далі</a>
+        </article>
+    {% empty %}
+        <p>Постів ще немає.</p>
+    {% endfor %}
+{% endblock %}
