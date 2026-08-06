@@ -14,7 +14,7 @@
 
     <hr style="border: 2px solid var(--border-color); margin-bottom: 20px;">
 
-    <h2>Коментарі ({{ post.comments.count }})</h2>
+    <h2>Коментарі ({{ post.comments.all|length }})</h2>
     
     {% for comment in post.comments.all %}
         <div class="comment">
